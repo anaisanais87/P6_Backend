@@ -9,10 +9,13 @@ const userRoutes = require('./routes/user');
 
 const path = require('path');
 
+const likeRoutes = require('./routes/like')
+
 mongoose.connect('mongodb+srv://anaisanais87:Matteo2612@cluster0.jwwe0.mongodb.net/<test>?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
   })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
@@ -31,5 +34,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', saucesRoutes);
 
 app.use('/api/auth', userRoutes);
+
+app.use('/api/sauces', likeRoutes)
 
 module.exports = app;
